@@ -7,6 +7,11 @@ from discord.ext import commands
 import asyncio
 from flask import Flask
 import threading
+from dotenv import load_dotenv
+
+
+# Load environment variables first
+load_dotenv()
 
 # Configure Logging
 logging.basicConfig(
@@ -22,7 +27,14 @@ app = Flask(__name__)
 # Load environment variables
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 CHANNEL_ID = os.getenv('CHANNEL_ID')
-ALLOWED_CHANNEL_IDS = [int(CHANNEL_ID)] if CHANNEL_ID else []
+ALLOWED_CHANNEL_IDS = [int(CHANNEL_ID)]
+
+
+if not DISCORD_TOKEN:
+    raise ValueError("No DISCORD_TOKEN found in environment variables")
+if not CHANNEL_ID:
+    raise ValueError("No CHANNEL_ID found in environment variables")
+
 
 # Initialize Discord Bot
 intents = discord.Intents.default()
@@ -200,10 +212,12 @@ def home():
 # Start bot in a separate thread when Flask app starts
 
 
-@app.before_first_request
-def start_bot_thread():
-    bot_thread = threading.Thread(target=run_bot)
-    bot_thread.start()
+@app.before_request
+def startup():
+    if not hasattr(app, 'bot_started'):
+        app.bot_started = True
+        bot_thread = threading.Thread(target=run_bot)
+        bot_thread.start()
 
 
 if __name__ == '__main__':
