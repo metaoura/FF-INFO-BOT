@@ -107,7 +107,7 @@ async def get(ctx, uid: str):
         await ctx.send("This command can only be used in specific channels.")
         return
 
-    await ctx.message.delete()
+    
     msg = await ctx.send(f"🔍 Fetching details for UID {uid}...")
 
     profile_data = await get_profile_info(uid)
