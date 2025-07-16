@@ -45,7 +45,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 
 async def get_profile_info(uid):
-    url = f"https://ff-community-api.vercel.app/ff.Info?uid={uid}"
+    url = f"http://info.paulalfredo.tech/info?uid={user_id}"
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
