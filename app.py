@@ -90,7 +90,7 @@ def format_items(items, category):
 async def on_ready():
     logger.info(f'Logged in as {bot.user.name} ({bot.user.id})')
     activities = [
-        discord.Game(name="RAKIB's 👑 KINGDOM"),
+        discord.Game(name="META's 👑 KINGDOM"),
         discord.Activity(type=discord.ActivityType.watching,
                          name="!get <uid>"),
         discord.Game(name="Example: !get 1722778962")
@@ -187,7 +187,7 @@ Members: {guild_info.get('GuildMember', 'N/A')}/{guild_info.get('GuildCapacity',
     embed.add_field(name="🏰 GUILD DETAILS", value=guild_value, inline=False)
 
     # Footer
-    embed.set_footer(text="🔥 Powered by RAKIB's API | 📧 Contact: @yoursrakib",
+    embed.set_footer(text="🔥 Powered by META's API | 📧 Contact: @jackson_tn",
                      icon_url="https://emoji.discord.st/emojis/7692_ff.png")
 
     await msg.edit(content="", embed=embed)
